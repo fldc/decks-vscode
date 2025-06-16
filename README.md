@@ -39,6 +39,52 @@ _%appdata%\Elgato\StreamDeck\Plugins\com.nicollasr.streamdeckvsc.sdPlugin\settin
 
 _~/Library/Application Support/com.elgato.StreamDeck/Plugins/com.nicollasr.streamdeckvsc.mac.sdPlugin/settings.ini_
 
+#### Linux
+
+_~/.config/opendeck/plugins/com.nicollasr.streamdeckvsc/settings.ini_
+
 **Don't forget to change it in Visual Studio Code settings or you won't be able to connect and use the available features.**
 
 _I recommend using 127.0.0.1 as your IP address instead of localhost_.
+
+## Building for Linux (OpenDeck)
+
+### Prerequisites
+
+- .NET 9 SDK installed
+- OpenDeck software
+
+### Build Options
+
+#### Framework-Dependent Build (Recommended)
+
+This creates a smaller package but requires .NET 9 runtime to be installed on the target system:
+
+```bash
+./build-linux.sh
+```
+
+#### Self-Contained Build
+
+This creates a larger package but includes the .NET runtime (no separate installation needed):
+
+```bash
+./build-linux-self-contained.sh
+```
+
+### Installation on Linux
+
+1. Run one of the build scripts above
+2. Copy the generated distribution folder contents to: `~/.config/opendeck/plugins/com.nicollasr.streamdeckvsc/`
+3. Make the executable runnable:
+   ```bash
+   chmod +x ~/.config/opendeck/plugins/com.nicollasr.streamdeckvsc/com.nicollasr.streamdeckvsc
+   ```
+4. Restart OpenDeck
+5. Install the Visual Studio Code extension from the marketplace
+
+### Linux Distribution Packages
+
+The build scripts create distribution packages in the `dist/` directory:
+- `dist/linux-x64/` - Framework-dependent build
+- `dist/linux-x64-self-contained/` - Self-contained build
